@@ -109,8 +109,6 @@ int main(){
 
   //setup timers (1 for each m,s,cs)
 
-  int t = 1;
-
   while(1){
     displayTime();
     // button to start
