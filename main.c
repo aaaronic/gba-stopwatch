@@ -61,16 +61,18 @@ void interruptHandler(void) {
     time_s++;
     if (time_s > 59) {
       time_s = time_s - 60;
-      time_m++;
     }
+  }
+  if (REG_IF & INT_TM2) {
+    time_m++;
   }
   REG_IF = REG_IF;  // Tell GBA that interrupt has
                     // been handled
   REG_IME = 1;      //enable interrupts
 }
 
-void enableTimerInterrupts(void) { 
-  REG_IE = INT_TM0 | INT_TM1; // Enable timer interrupts
+void enableTimerInterrupts(void) {
+  REG_IE = INT_TM0 | INT_TM1 | INT_TM2; // Enable timer interrupts
   // once per cs
   REG_TM0CNT = 0;
   REG_TM0D = 65536 - 164;
@@ -80,6 +82,11 @@ void enableTimerInterrupts(void) {
   REG_TM1CNT = 0;
   REG_TM1D = 0;
   REG_TM1CNT = TM_FREQ_256 | TIMER_ON | TM_IRQ;
+
+  // timer 2 ticks when timer 1 overflows and triggers once per minute
+  REG_TM2CNT = 0;
+  REG_TM2D = 65536 - 60; // 60 seconds in a minute
+  REG_TM2CNT = TM_CASCADE | TIMER_ON | TM_IRQ; // cascades from Timer1
 }
 
 void setupInterrupts(void) {
