@@ -60,7 +60,7 @@ void interruptHandler(void) {
   if (REG_IF & INT_TM1) {
     time_s++;
     if (time_s > 59) {
-      time_s = time_s - 59;
+      time_s = time_s - 60;
       time_m++;
     }
   }
