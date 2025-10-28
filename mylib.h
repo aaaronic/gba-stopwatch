@@ -212,37 +212,13 @@ typedef volatile struct {
     volatile const void *src;
     volatile void *dst;
     volatile unsigned int cnt;
-} DMA;
+} DMArec;
 
-// First DMA Register Address
-extern DMA *dma;
-
-// Destination Adjustment
-#define DMA_DESTINATION_INCREMENT (0 << 21)
-#define DMA_DESTINATION_DECREMENT (1 << 21)
-#define DMA_DESTINATION_FIXED (2 << 21)
-#define DMA_DESTINATION_RESET (3 << 21)
-
-// Source Adjustment
-#define DMA_SOURCE_INCREMENT (0 << 23)
-#define DMA_SOURCE_DECREMENT (1 << 23)
-#define DMA_SOURCE_FIXED (2 << 23)
-
-// VBlank and HBlank Repeats
-#define DMA_REPEAT (1 << 25)
+#define DMA ((DMArec *)0x40000B0)
 
 // Chunk Size
 #define DMA_16 (0 << 26)
 #define DMA_32 (1 << 26)
-
-// Timing Mode
-#define DMA_AT_NOW (0 << 28)
-#define DMA_AT_VBLANK (1 << 28)
-#define DMA_AT_HBLANK (2 << 28)
-#define DMA_AT_REFRESH (3 << 28)
-
-// Interrupts
-#define DMA_IRQ (1 << 30)
 
 // Begin DMA
 #define DMA_ON (1 << 31)
@@ -299,66 +275,15 @@ typedef void (*ihp_t)(void);
 #define INT_VBLANK_ENABLE 1 << 3
 
 //interrupt constants for checking which type of interrupt happened
-#define INT_VBLANK 1 << 0
-#define INT_TM0 1<<3
-#define INT_TM1 1<<4
-#define INT_TM2 1<<5
-#define INT_TM3 1<<6
-#define INT_BUTTON 1 << 12
+#define INT_VBLANK (1 << 0)
+#define INT_HBLANK (1 << 1)
+#define INT_TM0 (1<<3)
+#define INT_TM1 (1<<4)
+#define INT_TM2 (1<<5)
+#define INT_TM3 (1<<6)
+#define INT_BUTTON (1 << 12)
 
-// =================================== SOUND ====================================
-
-#define REG_SOUNDCNT_X *(volatile u16 *)0x04000084
-
-#define PROCESSOR_CYCLES_PER_SECOND (16777216)
-#define VBLANK_FREQ (59.727)
-
-// register definitions
-#define REG_SOUNDCNT_L        *(u16*)0x04000080
-#define REG_SOUNDCNT_H        *(volatile u16*)0x04000082
-
-// flags
-#define SND_ENABLED           (1<<7)
-#define SND_OUTPUT_RATIO_25   0
-#define SND_OUTPUT_RATIO_50   (1<<0)
-#define SND_OUTPUT_RATIO_100  (1<<1)
-#define DSA_OUTPUT_RATIO_50   (0<<2)
-#define DSA_OUTPUT_RATIO_100  (1<<2)
-#define DSA_OUTPUT_TO_RIGHT   (1<<8)
-#define DSA_OUTPUT_TO_LEFT    (1<<9)
-#define DSA_OUTPUT_TO_BOTH    (3<<8)
-#define DSA_TIMER0            (0<<10)
-#define DSA_TIMER1            (1<<10)
-#define DSA_FIFO_RESET        (1<<11)
-#define DSB_OUTPUT_RATIO_50   (0<<3)
-#define DSB_OUTPUT_RATIO_100  (1<<3)
-#define DSB_OUTPUT_TO_RIGHT   (1<<12)
-#define DSB_OUTPUT_TO_LEFT    (1<<13)
-#define DSB_OUTPUT_TO_BOTH    (3<<12)
-#define DSB_TIMER0            (0<<14)
-#define DSB_TIMER1            (1<<14)
-#define DSB_FIFO_RESET        (1<<15)
-
-// FIFO address defines
-#define REG_FIFO_A          (u16*)0x040000A0
-#define REG_FIFO_B          (u16*)0x040000A4
-
-
-typedef struct{
-    const unsigned char* data;
-    int length;
-    int frequency;
-    int isPlaying;
-    int loops;
-    int duration;
-    int priority;
-    int vBlankCount;
-} SOUND;
-
-// ============================== MISCELLANEOUS ===============================
-
-// Miscellaneous Functions
-int collision(int colA, int rowA, int widthA, int heightA, int colB, int rowB, int widthB, int heightB);
-
+#define DISPSTAT_VBLANK_INT_ENABLE (1<<3)
+#define DISPSTAT_HBLANK_INT_ENABLE (1<<4)
 
 #endif

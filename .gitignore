@@ -32,6 +32,7 @@
 *.so
 *.so.*
 *.dylib
+*.zip
 
 # Executables
 *.exe
@@ -52,3 +53,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# GBA Save Files
+*.sav
