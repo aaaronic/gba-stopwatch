@@ -5,5 +5,6 @@
     "github.copilot.nextEditSuggestions.enabled": false,
     "github.copilot.renameSuggestions.triggerAutomatically": false,
     "chat.commandCenter.enabled": false,
-    "chat.agent.enabled": false
+    "chat.agent.enabled": false,
+    "chat.disableAIFeatures": true
 }

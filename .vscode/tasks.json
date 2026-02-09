@@ -42,19 +42,19 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "docker run --rm -it -v \"${PWD}:/gba\" aaaronic/gba-compiler:1.3",
+            "command": "docker run --rm -it -v \"${PWD}:/gba\" aaaronic/gba-compiler:1.4",
             "problemMatcher": []
         },
         {
             "label": "clean",
             "type": "shell",
-            "command": "docker run --rm -it -v \"${PWD}:/gba\" aaaronic/gba-compiler:1.3 clean",
+            "command": "docker run --rm -it -v \"${PWD}:/gba\" aaaronic/gba-compiler:1.4 clean",
             "problemMatcher": []
         },
         {
             "label": "audio",
             "type": "shell",
-            "command": "docker run --rm -it -v \"${PWD}:/gba\" aaaronic/gba-compiler:1.3 audio",
+            "command": "docker run --rm -it -v \"${PWD}:/gba\" aaaronic/gba-compiler:1.4 audio",
             "problemMatcher": []
         },
         {
@@ -63,7 +63,7 @@
             "windows": {
                 "command": "Compress-Archive -Force . \"$(Split-Path -Path (Get-Location) -Leaf).zip\"",
             },
-            "command": "export zip=\"$(basename $(pwd)).zip\"; rm -f $zip; zip -x \"*.DS_Store\" -Xr $zip .",
+            "command": "export zip=\"$(basename \"$(pwd)\").zip\"; rm -f $zip; zip -x \"*.DS_Store\" -Xr \"$zip\" .",
             "problemMatcher": []
         }
     ]
